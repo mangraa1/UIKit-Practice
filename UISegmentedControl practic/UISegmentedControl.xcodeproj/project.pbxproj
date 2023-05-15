@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		046290DE29C70B9800DF6EF7 /* data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046290DD29C70B9800DF6EF7 /* data.swift */; };
 		048D48CB29C5DB9800014F4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D48CA29C5DB9800014F4A /* AppDelegate.swift */; };
 		048D48CD29C5DB9800014F4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D48CC29C5DB9800014F4A /* SceneDelegate.swift */; };
 		048D48CF29C5DB9800014F4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D48CE29C5DB9800014F4A /* ViewController.swift */; };
@@ -17,7 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		046290DD29C70B9800DF6EF7 /* data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = data.swift; sourceTree = "<group>"; };
 		048D48C729C5DB9800014F4A /* UISegmentedControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UISegmentedControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048D48CA29C5DB9800014F4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		048D48CC29C5DB9800014F4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +40,6 @@
 		048D48BE29C5DB9800014F4A = {
 			isa = PBXGroup;
 			children = (
-				046290DD29C70B9800DF6EF7 /* data.swift */,
 				048D48C929C5DB9800014F4A /* UISegmentedControl */,
 				048D48C829C5DB9800014F4A /* Products */,
 			);
@@ -144,7 +141,6 @@
 				048D48CF29C5DB9800014F4A /* ViewController.swift in Sources */,
 				048D48CB29C5DB9800014F4A /* AppDelegate.swift in Sources */,
 				048D48CD29C5DB9800014F4A /* SceneDelegate.swift in Sources */,
-				046290DE29C70B9800DF6EF7 /* data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
