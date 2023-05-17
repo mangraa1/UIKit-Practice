@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  UISlider
+//  UISlider practic
 //
-//  Created by mac on 20.03.2023.
+//  Created by mac on 16.05.2023.
 //
 
 import UIKit
