@@ -8,13 +8,22 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+
+    var label = UILabel()
     var percents = [0, 5, 10, 15, 20, 25]
     var sum = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        //MARK: - label
+
+        view.addSubview(label)
+
+        label.text = "price with diskount"
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20)
+
         //MARK: - textField
         
         let textField = UITextField()
@@ -23,7 +32,6 @@ class ViewController: UIViewController {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.gray.cgColor
         textField.layer.cornerRadius = 15
-        
         textField.addTarget(self, action: #selector(textFieldAction(sender:)), for: .editingChanged)
         
         //MARK: - stackView in scrollView
@@ -38,13 +46,19 @@ class ViewController: UIViewController {
         scrollView.addSubview(stackView)
         
         //MARK: - Constraints
-        
+
+        label.translatesAutoresizingMaskIntoConstraints = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            label.heightAnchor.constraint(equalToConstant: 40),
+
+            textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 30),
             textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             textField.heightAnchor.constraint(equalToConstant: 40),
@@ -85,7 +99,7 @@ class ViewController: UIViewController {
     
     @objc func buttonAction(sender: UIButton) {
         let finishPrice = sum - sum / 100 * Double(sender.tag)
-        print("price with diskount: \(finishPrice)")
+        label.text = String(finishPrice)
         
         UIView.animate(withDuration: 0.25, animations: {
             sender.isHidden = true
