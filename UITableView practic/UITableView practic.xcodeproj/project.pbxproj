@@ -65,22 +65,14 @@
 				0476FD4E2A28B5DB00AF2A71 /* AppDelegate.swift */,
 				0476FD502A28B5DB00AF2A71 /* SceneDelegate.swift */,
 				0476FD522A28B5DB00AF2A71 /* ViewController.swift */,
-				0476FD6B2A28FDED00AF2A71 /* TableView */,
+				0476FD652A28D87B00AF2A71 /* Source.swift */,
+				0476FD692A28EA4300AF2A71 /* ContactCell.swift */,
 				0476FD542A28B5DB00AF2A71 /* Main.storyboard */,
 				0476FD572A28B5DD00AF2A71 /* Assets.xcassets */,
 				0476FD592A28B5DD00AF2A71 /* LaunchScreen.storyboard */,
 				0476FD5C2A28B5DD00AF2A71 /* Info.plist */,
 			);
 			path = "UITableView practic";
-			sourceTree = "<group>";
-		};
-		0476FD6B2A28FDED00AF2A71 /* TableView */ = {
-			isa = PBXGroup;
-			children = (
-				0476FD652A28D87B00AF2A71 /* Source.swift */,
-				0476FD692A28EA4300AF2A71 /* ContactCell.swift */,
-			);
-			path = TableView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

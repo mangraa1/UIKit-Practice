@@ -31,6 +31,8 @@ class ContactCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        setupCell()
     }
 
     required init?(coder: NSCoder) {
@@ -40,6 +42,8 @@ class ContactCell: UITableViewCell {
     //MARK: - private
 
     private func setupCell() {
+
+        [avatar, nameLabel, descriptionLabel].forEach { contentView.addSubview($0) }
 
         avatar.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(16)

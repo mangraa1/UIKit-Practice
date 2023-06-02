@@ -49,7 +49,7 @@ struct Source {
         return contacts
     }
 
-    static func sortingContactsByGender() -> [[Contact]] {
+    static func makeContactsWithGroup() -> [[Contact]] {
         let male = makeContacts().filter { $0.gender == .male }
         let female = makeContacts().filter { $0.gender == .female }
 
