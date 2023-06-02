@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     let tableView: UITableView = .init()
     var contacts = Source.makeContactsWithGroup()
 
+    //MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +24,8 @@ class ViewController: UIViewController {
 
         tableView.dataSource = self
         tableView.delegate = self
+
+        tableView.isEditing = true
     }
 
 }
@@ -49,13 +53,25 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as? ContactCell else { fatalError() }
 
-//        cell.configure(contact: contacts[indexPath.row])
         cell.configure(contact: contacts[indexPath.section][indexPath.row])
- 
+
         return cell
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        contacts[indexPath.section].remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .left)
 
+    }
+
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let contact = contacts[sourceIndexPath.section].remove(at: sourceIndexPath.row)
+        contacts[destinationIndexPath.section].insert(contact, at: destinationIndexPath.row)
+    }
 
 }
 
@@ -64,13 +80,12 @@ extension ViewController: UITableViewDelegate {
 }
 
 extension ViewController {
-
     func setupTableView() {
-
         view.addSubview(tableView)
 
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.left.right.bottom.equalToSuperview()
         }
     }
 }
