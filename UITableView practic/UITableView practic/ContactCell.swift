@@ -15,13 +15,13 @@ class ContactCell: UITableViewCell {
     let avatar = UIImageView()
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 17)
 
         return label
     }()
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .lightGray
 
         return label
@@ -47,8 +47,8 @@ class ContactCell: UITableViewCell {
 
         avatar.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(16)
-            make.left.equalTo(contentView.snp.left).offset(16)
-            make.height.width.equalTo(32)
+            make.left.equalTo(contentView.snp.left).offset(14)
+            make.height.width.equalTo(37)
         }
 
         nameLabel.snp.makeConstraints { make in
