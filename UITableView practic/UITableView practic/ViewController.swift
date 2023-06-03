@@ -10,8 +10,10 @@ import SnapKit
 
 class ViewController: UIViewController {
 
-    let tableView: UITableView = .init()
     var contacts = Source.makeContactsWithGroup()
+
+    let tableView: UITableView = .init()
+    let editButton = UIButton()
 
     //MARK: - Life Cycle
 
@@ -19,13 +21,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         setupTableView()
+        setupButton()
 
         tableView.register(ContactCell.self, forCellReuseIdentifier: "ContactCell")
 
         tableView.dataSource = self
         tableView.delegate = self
 
-        tableView.isEditing = true
     }
 
 }
@@ -85,8 +87,37 @@ extension ViewController {
 
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.left.right.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
         }
+    }
+}
+
+extension ViewController {
+    func setupButton() {
+        view.addSubview(editButton)
+
+        editButton.setTitleColor(.black, for: .normal)
+        editButton.setTitleColor(.lightGray, for: .highlighted)
+        editButton.setTitle("edit", for: .normal)
+        editButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+
+        editButton.layer.borderWidth = 1
+        editButton.layer.borderColor = UIColor.black.cgColor
+        editButton.layer.cornerRadius = 15
+
+        editButton.addTarget(self, action: #selector(edit(sender:)), for: .touchUpInside)
+
+        editButton.snp.makeConstraints { make in
+            make.top.equalTo(tableView.snp.bottom).offset(8)
+            make.right.equalToSuperview().offset(-16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.left.equalToSuperview().offset(16)
+        }
+    }
+
+    @objc func edit(sender: UIButton) {
+        tableView.isEditing.toggle()
+        editButton.setTitle(tableView.isEditing ? "end edit" : "edit", for: .normal)
     }
 }
 
