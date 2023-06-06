@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     //MARK: - Variables
 
     var collectionView: UICollectionView!
+    var layout: UICollectionViewFlowLayout!
+    let button = UIButton()
 
     let sourse = Source.randomPhotos(with: 15)
 
@@ -22,17 +24,20 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         setupCollectionView()
+        setupButton()
     }
 
     //MARK: - Custom functions
 
     func setupCollectionView() {
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: setupFlowLayout())
+
+        layout = setupFlowLayout()
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
         view.addSubview(collectionView)
 
         collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.left.right.equalTo(view.safeAreaLayoutGuide)
         }
         collectionView.dataSource = self
 
@@ -42,9 +47,38 @@ class ViewController: UIViewController {
     func setupFlowLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
 
-        layout.itemSize = .init(width: 100, height: 100)
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
+
+        layout.sectionInset = .init(top: 30, left: 30, bottom: 30, right: 30)
 
         return layout
+    }
+
+    func setupButton() {
+        view.addSubview(button)
+
+        button.setTitle("Change", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.gray, for: .highlighted)
+
+        button.snp.makeConstraints { make in
+            make.top.equalTo(collectionView.snp.bottom).offset(8)
+            make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(64)
+        }
+
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+    }
+
+    @objc func buttonAction() {
+        layout.scrollDirection = layout.scrollDirection == .horizontal ? .vertical : .horizontal
+
+        UIView.animate(withDuration: 1) {
+            self.view.layoutIfNeeded()
+        }
     }
 
 }

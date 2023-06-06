@@ -34,6 +34,7 @@ class PhotoCell: UICollectionViewCell {
         self.clipsToBounds = true
 
         imageView.snp.makeConstraints { make in
+            make.height.width.equalTo(150)
             make.edges.equalTo(contentView)
         }
     }
