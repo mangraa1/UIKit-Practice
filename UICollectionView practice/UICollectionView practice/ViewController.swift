@@ -16,7 +16,11 @@ class ViewController: UIViewController {
     var layout: UICollectionViewFlowLayout!
     let button = UIButton()
 
-    let sourse = Source.randomPhotos(with: 15)
+//    let source = Source.randomPhotos(with: 15)
+    let source: [SectionPhoto] = [
+        SectionPhoto(sectionName: "First section", photos: Source.randomPhotos(with: 15)),
+        SectionPhoto(sectionName: "Second section", photos: Source.randomPhotos(with: 15))
+    ]
 
     //MARK: - Life Cycle
 
@@ -42,6 +46,7 @@ class ViewController: UIViewController {
         collectionView.dataSource = self
 
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "\(PhotoCell.self)")
+        collectionView.register(HeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "\(HeaderReusableView.self)")
     }
 
     func setupFlowLayout() -> UICollectionViewFlowLayout {
@@ -53,6 +58,8 @@ class ViewController: UIViewController {
         layout.minimumInteritemSpacing = 10
 
         layout.sectionInset = .init(top: 30, left: 30, bottom: 30, right: 30)
+
+        layout.headerReferenceSize = .init(width: view.frame.size.width, height: 60)
 
         return layout
     }
@@ -80,14 +87,17 @@ class ViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
-
 }
 
 //MARK: - Extensions
 
 extension ViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        source.count
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        sourse.count
+        source[section].photos.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -95,8 +105,22 @@ extension ViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        cell.imageView.image = UIImage(named: sourse[indexPath.item].imageName)
+//        cell.imageView.image = UIImage(named: source[indexPath.item].imageName)
+        cell.imageView.image = UIImage(named: source[indexPath.section].photos[indexPath.item].imageName)
 
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "\(HeaderReusableView.self)", for: indexPath) as? HeaderReusableView else {
+                return UICollectionReusableView()
+            }
+            view.titleLabel.text = source[indexPath.section].sectionName
+            return view
+
+        default: return UICollectionReusableView()
+        }
     }
 }

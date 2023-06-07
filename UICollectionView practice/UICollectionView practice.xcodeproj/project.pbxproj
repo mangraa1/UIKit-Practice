@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042246FA2A30B89C00E1E246 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042246F92A30B89C00E1E246 /* HeaderReusableView.swift */; };
 		045E55222A2F4D2100591618 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E55212A2F4D2100591618 /* AppDelegate.swift */; };
 		045E55242A2F4D2100591618 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E55232A2F4D2100591618 /* SceneDelegate.swift */; };
 		045E55262A2F4D2100591618 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E55252A2F4D2100591618 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		042246F92A30B89C00E1E246 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		045E551E2A2F4D2100591618 /* UICollectionView practice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UICollectionView practice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		045E55212A2F4D2100591618 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		045E55232A2F4D2100591618 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				045E55212A2F4D2100591618 /* AppDelegate.swift */,
 				045E55232A2F4D2100591618 /* SceneDelegate.swift */,
 				045E55252A2F4D2100591618 /* ViewController.swift */,
+				042246F92A30B89C00E1E246 /* HeaderReusableView.swift */,
 				045E553A2A2F743C00591618 /* PhotoCell.swift */,
 				045E55382A2F6C6700591618 /* Source.swift */,
 				045E55272A2F4D2100591618 /* Main.storyboard */,
@@ -154,6 +157,7 @@
 			files = (
 				045E55392A2F6C6700591618 /* Source.swift in Sources */,
 				045E553B2A2F743C00591618 /* PhotoCell.swift in Sources */,
+				042246FA2A30B89C00E1E246 /* HeaderReusableView.swift in Sources */,
 				045E55262A2F4D2100591618 /* ViewController.swift in Sources */,
 				045E55222A2F4D2100591618 /* AppDelegate.swift in Sources */,
 				045E55242A2F4D2100591618 /* SceneDelegate.swift in Sources */,
