@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 
     let source: [SectionPhoto] = [
         SectionPhoto(sectionName: "First section", photos: Source.randomPhotos(with: 6)),
-        SectionPhoto(sectionName: "Second section", photos: Source.randomPhotos(with: 6 ))
+        SectionPhoto(sectionName: "Second section", photos: Source.randomPhotos(with: 6))
     ]
 
     //MARK: - Life Cycle
@@ -42,6 +42,7 @@ class ViewController: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.top.left.right.equalTo(view.safeAreaLayoutGuide)
         }
+
         collectionView.dataSource = self
         collectionView.delegate = self
 
@@ -56,8 +57,6 @@ class ViewController: UIViewController {
 
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
-
-//        layout.sectionInset = .init(top: 30, left: 30, bottom: 30, right: 30)
 
         layout.headerReferenceSize = .init(width: view.frame.size.width, height: 60)
 
@@ -125,43 +124,47 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        true
+     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+         true
+     }
+
+     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+         let cell = collectionView.cellForItem(at: indexPath)
+         cell?.contentView.backgroundColor = .cyan
+     }
+
+     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+         let cell = collectionView.cellForItem(at: indexPath)
+         cell?.contentView.backgroundColor = .clear
+     }
+
+     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+         true
+     }
+
+     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+         let alert = UIAlertController(title: "select", message: "section: \(indexPath.section + 1)  item: \(indexPath.item + 1)", preferredStyle: .actionSheet)
+         let okAction = UIAlertAction(title: "ok", style: .default)
+         alert.addAction(okAction)
+         self.present(alert, animated: true)
+     }
+
+     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+         print("deselect \(indexPath.section) - \(indexPath.item)")
+     }
+
+     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+         let lastSection = source.count - 1
+         let lastItem = source[lastSection].photos.count - 1
+
+         let lastIndexPath = IndexPath(item: lastItem, section: lastSection)
+
+         if indexPath == lastIndexPath {
+             print("willDisplay worked")
+         }
+     }
+
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print("End display cell \(indexPath.section) - \(indexPath.item)")
     }
-
-    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.contentView.backgroundColor = .cyan
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.contentView.backgroundColor = .clear
-    }
-
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        true
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "select", message: "section: \(indexPath.section + 1)  item: \(indexPath.item + 1)", preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "ok", style: .default)
-        alert.addAction(okAction)
-        self.present(alert, animated: true)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        print("deselect \(indexPath.section) - \(indexPath.item)")
-    }
-
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let lastSection = source.count - 1
-        let lastItem = source[lastSection].photos.count - 1
-
-        let lastIndexPath = IndexPath(item: lastItem, section: lastSection)
-
-        if indexPath == lastIndexPath {
-            print("willDisplay worked")
-        }
-    }
-}
+ }

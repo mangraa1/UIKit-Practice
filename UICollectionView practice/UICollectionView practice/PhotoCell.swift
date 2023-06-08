@@ -27,7 +27,7 @@ class PhotoCell: UICollectionViewCell {
     //MARK: - Custom functions
 
     func setup() {
-        self.contentView.addSubview(imageView)
+        contentView.addSubview(imageView)
 
         imageView.contentMode = .scaleAspectFill
 
