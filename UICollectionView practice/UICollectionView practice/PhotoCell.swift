@@ -31,10 +31,10 @@ class PhotoCell: UICollectionViewCell {
 
         imageView.contentMode = .scaleAspectFill
 
-        self.clipsToBounds = true
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 50
 
         imageView.snp.makeConstraints { make in
-            make.height.width.equalTo(150)
             make.edges.equalTo(contentView)
         }
     }

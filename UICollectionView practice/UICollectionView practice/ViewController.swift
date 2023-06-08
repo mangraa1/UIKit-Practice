@@ -16,10 +16,9 @@ class ViewController: UIViewController {
     var layout: UICollectionViewFlowLayout!
     let button = UIButton()
 
-//    let source = Source.randomPhotos(with: 15)
     let source: [SectionPhoto] = [
-        SectionPhoto(sectionName: "First section", photos: Source.randomPhotos(with: 15)),
-        SectionPhoto(sectionName: "Second section", photos: Source.randomPhotos(with: 15))
+        SectionPhoto(sectionName: "First section", photos: Source.randomPhotos(with: 6)),
+        SectionPhoto(sectionName: "Second section", photos: Source.randomPhotos(with: 6 ))
     ]
 
     //MARK: - Life Cycle
@@ -44,6 +43,7 @@ class ViewController: UIViewController {
             make.top.left.right.equalTo(view.safeAreaLayoutGuide)
         }
         collectionView.dataSource = self
+        collectionView.delegate = self
 
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "\(PhotoCell.self)")
         collectionView.register(HeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "\(HeaderReusableView.self)")
@@ -52,12 +52,12 @@ class ViewController: UIViewController {
     func setupFlowLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
 
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.itemSize = .init(width: 100, height: 100)
 
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
 
-        layout.sectionInset = .init(top: 30, left: 30, bottom: 30, right: 30)
+//        layout.sectionInset = .init(top: 30, left: 30, bottom: 30, right: 30)
 
         layout.headerReferenceSize = .init(width: view.frame.size.width, height: 60)
 
@@ -105,7 +105,6 @@ extension ViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-//        cell.imageView.image = UIImage(named: source[indexPath.item].imageName)
         cell.imageView.image = UIImage(named: source[indexPath.section].photos[indexPath.item].imageName)
 
         return cell
@@ -121,6 +120,48 @@ extension ViewController: UICollectionViewDataSource {
             return view
 
         default: return UICollectionReusableView()
+        }
+    }
+}
+
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        true
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.contentView.backgroundColor = .cyan
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.contentView.backgroundColor = .clear
+    }
+
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        true
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let alert = UIAlertController(title: "select", message: "section: \(indexPath.section + 1)  item: \(indexPath.item + 1)", preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "ok", style: .default)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        print("deselect \(indexPath.section) - \(indexPath.item)")
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let lastSection = source.count - 1
+        let lastItem = source[lastSection].photos.count - 1
+
+        let lastIndexPath = IndexPath(item: lastItem, section: lastSection)
+
+        if indexPath == lastIndexPath {
+            print("willDisplay worked")
         }
     }
 }
