@@ -45,6 +45,8 @@ class ViewController: UIViewController {
 
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.dragInteractionEnabled = true
+        collectionView.dragDelegate = self
 
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "\(PhotoCell.self)")
         collectionView.register(HeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "\(HeaderReusableView.self)")
@@ -124,47 +126,46 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: UICollectionViewDelegate {
-     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-         true
-     }
-
-     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-         let cell = collectionView.cellForItem(at: indexPath)
-         cell?.contentView.backgroundColor = .cyan
-     }
-
-     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-         let cell = collectionView.cellForItem(at: indexPath)
-         cell?.contentView.backgroundColor = .clear
-     }
-
-     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-         true
-     }
-
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-         let alert = UIAlertController(title: "select", message: "section: \(indexPath.section + 1)  item: \(indexPath.item + 1)", preferredStyle: .actionSheet)
+         let alert = UIAlertController(title: "select", message: "section: \(indexPath.section + 1)  item: \(indexPath.item + 1)", preferredStyle: .alert)
          let okAction = UIAlertAction(title: "ok", style: .default)
          alert.addAction(okAction)
          self.present(alert, animated: true)
      }
-
-     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-         print("deselect \(indexPath.section) - \(indexPath.item)")
-     }
-
-     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-         let lastSection = source.count - 1
-         let lastItem = source[lastSection].photos.count - 1
-
-         let lastIndexPath = IndexPath(item: lastItem, section: lastSection)
-
-         if indexPath == lastIndexPath {
-             print("willDisplay worked")
-         }
-     }
-
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        print("End display cell \(indexPath.section) - \(indexPath.item)")
-    }
  }
+
+extension ViewController: UICollectionViewDragDelegate {
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let photo = source[indexPath.section].photos[indexPath.item]
+
+        let itemProvider = NSItemProvider(object: photo)
+
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+
+        return [dragItem]
+    }
+
+    func collectionView(_ collectionView: UICollectionView, dragSessionWillBegin session: UIDragSession) {
+        UIView.animate(withDuration: 0.2) {
+            self.button.alpha = 0
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, dragSessionDidEnd session: UIDragSession) {
+        UIView.animate(withDuration: 0.2) {
+            self.button.alpha = 1
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
+        let photo = source[indexPath.section].photos[indexPath.item]
+
+        let itemProvider = NSItemProvider(object: photo)
+
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+
+        return [dragItem]
+    }
+
+
+}

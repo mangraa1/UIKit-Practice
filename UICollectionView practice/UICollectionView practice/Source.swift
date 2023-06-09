@@ -7,9 +7,22 @@
 
 import Foundation
 
-struct Photo {
+class Photo: NSObject, NSItemProviderWriting {
+    static var writableTypeIdentifiersForItemProvider: [String] {
+        ["Photo"]
+    }
+
+    func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping @Sendable (Data?, Error?) -> Void) -> Progress? {
+        nil
+    }
+
     let id: Int
     let imageName: String
+
+    init(id: Int, imageName: String) {
+        self.id = id
+        self.imageName = imageName
+    }
 }
 
 struct SectionPhoto {
