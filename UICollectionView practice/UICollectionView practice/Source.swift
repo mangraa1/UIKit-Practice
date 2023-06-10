@@ -16,10 +16,10 @@ class Photo: NSObject, NSItemProviderWriting {
         nil
     }
 
-    let id: Int
+    let id: String
     let imageName: String
 
-    init(id: Int, imageName: String) {
+    init(id: String, imageName: String) {
         self.id = id
         self.imageName = imageName
     }
@@ -31,18 +31,18 @@ struct SectionPhoto {
 }
 
 struct Source {
-    static func allPhotos() -> [Photo] {
-        [
-            .init(id: 1, imageName: "Alex"),
-            .init(id: 2, imageName: "Kim"),
-            .init(id: 3, imageName: "Michael"),
-            .init(id: 4, imageName: "Anna"),
-            .init(id: 5, imageName: "Sam"),
-            .init(id: 6, imageName: "Boris")
-        ]
+    static func allPeople() -> [String] {
+        ["Alex", "Kim", "Michael", "Anna", "Sam", "Boris"]
+    }
+
+    static func makePhoto(name: String) -> Photo {
+        .init(id: UUID().uuidString, imageName: name)
     }
 
     static func randomPhotos(with count: Int) -> [Photo] {
-        return (0..<count).map { _ in allPhotos().randomElement()!}
+        return (0..<count).map { _ in
+            let name = allPeople().randomElement()
+            return makePhoto(name: name!)
+        }
     }
 }

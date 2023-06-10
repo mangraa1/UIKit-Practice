@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var layout: UICollectionViewFlowLayout!
     let button = UIButton()
 
-    let source: [SectionPhoto] = [
+    var source: [SectionPhoto] = [
         SectionPhoto(sectionName: "First section", photos: Source.randomPhotos(with: 6)),
         SectionPhoto(sectionName: "Second section", photos: Source.randomPhotos(with: 6))
     ]
@@ -47,6 +47,7 @@ class ViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dragInteractionEnabled = true
         collectionView.dragDelegate = self
+        collectionView.dropDelegate = self
 
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "\(PhotoCell.self)")
         collectionView.register(HeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "\(HeaderReusableView.self)")
@@ -141,6 +142,7 @@ extension ViewController: UICollectionViewDragDelegate {
         let itemProvider = NSItemProvider(object: photo)
 
         let dragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = photo
 
         return [dragItem]
     }
@@ -166,6 +168,46 @@ extension ViewController: UICollectionViewDragDelegate {
 
         return [dragItem]
     }
+}
 
+extension ViewController: UICollectionViewDropDelegate {
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+
+        guard let _ = destinationIndexPath else { return .init(operation: .forbidden) }
+
+        return .init(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+
+        guard let destinationIndexPath = coordinator.destinationIndexPath else { return }
+
+        for item in coordinator.items {
+            guard let photo = item.dragItem.localObject as? Photo else { continue }
+            guard let sourceIndexPath = item.sourceIndexPath else { continue }
+
+            collectionView.performBatchUpdates {
+                move(photo: photo, to: destinationIndexPath)
+                collectionView.moveItem(at: sourceIndexPath, to: destinationIndexPath)
+            }
+        }
+
+        for item in coordinator.items {
+            coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
+        }
+    }
+
+    func move(photo: Photo, to indexPath: IndexPath) {
+        var newPhotos = [Photo]()
+        var sections = [SectionPhoto]()
+
+        for section in source {
+            newPhotos = section.photos.filter { return $0.id != photo.id }
+            sections.append(.init(sectionName: section.sectionName, photos: newPhotos))
+        }
+
+        sections[indexPath.section].photos.insert(photo, at: indexPath.item)
+        source = sections
+    }
 
 }
