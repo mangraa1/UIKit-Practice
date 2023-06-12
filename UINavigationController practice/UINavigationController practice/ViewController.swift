@@ -43,8 +43,8 @@ extension ViewController {
     }
 
     @objc func pushButtonAction() {
-        let controller = PresentedViewController()
-        present(controller, animated: true)
+        let controller = OnePushViewController()
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -54,7 +54,23 @@ extension UIButton {
         self.layer.cornerRadius = 15
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.black.cgColor
-        self.backgroundColor = .red
+        self.backgroundColor = .systemPink
+    }
+
+    func makeMePopButton() {
+        self.setTitle("Pop", for: .normal)
+        self.layer.cornerRadius = 15
+        self.layer.borderWidth = 2
+        self.layer.borderColor = UIColor.black.cgColor
+        self.backgroundColor = .systemBlue
+    }
+
+    func makeMeButton(to text: String, withColor color: UIColor) {
+        self.setTitle(text, for: .normal)
+        self.layer.cornerRadius = 15
+        self.layer.borderWidth = 2
+        self.layer.borderColor = UIColor.black.cgColor
+        self.backgroundColor = color
     }
 }
 
