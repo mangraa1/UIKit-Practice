@@ -40,7 +40,7 @@ extension OnePushViewController {
             make.width.equalTo(200)
             make.height.equalTo(60)
         }
-        pushButton.makeMePushButton()
+        pushButton.makeMeButton(to: "Push", withColor: .systemPink)
 
         pushButton.addTarget(self, action: #selector(pushButtonAction), for: .touchUpInside)
     }
@@ -61,7 +61,7 @@ extension OnePushViewController {
             make.width.equalTo(200)
             make.height.equalTo(60)
         }
-        popButton.makeMePopButton()
+        popButton.makeMeButton(to: "Pop", withColor: .systemBlue)
 
         popButton.addTarget(self, action: #selector(popButtonAction), for: .touchUpInside)
     }

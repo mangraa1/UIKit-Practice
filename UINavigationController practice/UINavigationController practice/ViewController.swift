@@ -37,7 +37,7 @@ extension ViewController {
             make.width.equalTo(200)
             make.height.equalTo(60)
         }
-        pushButton.makeMePushButton()
+        pushButton.makeMeButton(to: "Push", withColor: .systemPink)
 
         pushButton.addTarget(self, action: #selector(pushButtonAction), for: .touchUpInside)
     }
@@ -49,21 +49,21 @@ extension ViewController {
 }
 
 extension UIButton {
-    func makeMePushButton() {
-        self.setTitle("Push", for: .normal)
-        self.layer.cornerRadius = 15
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.black.cgColor
-        self.backgroundColor = .systemPink
-    }
-
-    func makeMePopButton() {
-        self.setTitle("Pop", for: .normal)
-        self.layer.cornerRadius = 15
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.black.cgColor
-        self.backgroundColor = .systemBlue
-    }
+//    func makeMePushButton() {
+//        self.setTitle("Push", for: .normal)
+//        self.layer.cornerRadius = 15
+//        self.layer.borderWidth = 2
+//        self.layer.borderColor = UIColor.black.cgColor
+//        self.backgroundColor = .systemPink
+//    }
+//
+//    func makeMePopButton() {
+//        self.setTitle("Pop", for: .normal)
+//        self.layer.cornerRadius = 15
+//        self.layer.borderWidth = 2
+//        self.layer.borderColor = UIColor.black.cgColor
+//        self.backgroundColor = .systemBlue
+//    }
 
     func makeMeButton(to text: String, withColor color: UIColor) {
         self.setTitle(text, for: .normal)

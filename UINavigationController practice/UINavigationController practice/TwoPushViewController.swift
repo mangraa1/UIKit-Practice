@@ -38,7 +38,7 @@ extension TwoPushViewController {
             make.width.equalTo(200)
             make.height.equalTo(60)
         }
-        popToRootButton.makeMePopButton()
+        popToRootButton.makeMeButton(to: "Pop", withColor: .systemBlue)
 
         popToRootButton.addTarget(self, action: #selector(popToRootAction), for: .touchUpInside)
     }
