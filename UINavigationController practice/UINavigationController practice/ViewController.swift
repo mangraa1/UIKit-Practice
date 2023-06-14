@@ -49,21 +49,6 @@ extension ViewController {
 }
 
 extension UIButton {
-//    func makeMePushButton() {
-//        self.setTitle("Push", for: .normal)
-//        self.layer.cornerRadius = 15
-//        self.layer.borderWidth = 2
-//        self.layer.borderColor = UIColor.black.cgColor
-//        self.backgroundColor = .systemPink
-//    }
-//
-//    func makeMePopButton() {
-//        self.setTitle("Pop", for: .normal)
-//        self.layer.cornerRadius = 15
-//        self.layer.borderWidth = 2
-//        self.layer.borderColor = UIColor.black.cgColor
-//        self.backgroundColor = .systemBlue
-//    }
 
     func makeMeButton(to text: String, withColor color: UIColor) {
         self.setTitle(text, for: .normal)

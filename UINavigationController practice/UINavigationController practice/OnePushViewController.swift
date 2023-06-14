@@ -24,7 +24,7 @@ class OnePushViewController: UIViewController {
         configurePushButton()
         configurePopButton()
 
-        navigationItem.setHidesBackButton(true, animated: false)
+//        navigationItem.setHidesBackButton(true, animated: false)
     }
 }
 
