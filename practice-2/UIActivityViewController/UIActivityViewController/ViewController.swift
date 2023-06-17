@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     //MARK: - Variables
 
@@ -33,6 +33,8 @@ class ViewController: UIViewController {
         textField.center = view.center
         textField.borderStyle = .roundedRect
         textField.placeholder = "Enter text"
+
+        textField.delegate = self
     }
 
     func createButton() {
@@ -67,6 +69,13 @@ class ViewController: UIViewController {
         present(activityViewController!, animated: true)
     }
 
+    //MARK: - UITextFieldDelegate
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+
+        return true
+    }
 
 }
 
