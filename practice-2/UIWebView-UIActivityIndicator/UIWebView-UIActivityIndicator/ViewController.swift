@@ -9,7 +9,7 @@ import UIKit
 import WebKit
 import SnapKit
 
-final class ViewController: UIViewController {
+final class ViewController: UIViewController, WKNavigationDelegate {
 
     //MARK: - Variables
 
@@ -22,13 +22,18 @@ final class ViewController: UIViewController {
     let flexibleSpacer = UIBarButtonItem(systemItem: .flexibleSpace)
     let refreshItem = UIBarButtonItem(systemItem: .refresh)
 
+    let activityIndicator = UIActivityIndicatorView(style: .medium)
+
     //MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupWebViewWithToolBar()
+        view.addSubview(activityIndicator)
 
+        webView.navigationDelegate = self
+
+        setupWebViewWithToolBar()
         loadRequest()
 
     }
@@ -67,22 +72,53 @@ final class ViewController: UIViewController {
         webView.load(urlRequest)
     }
 
-
     //MARK: - Actions
 
     @objc func goBackAction() {
-
+        guard webView.canGoBack else { return }
+        webView.goBack()
     }
 
     @objc func goForwardAction() {
-
+        guard webView.canGoForward else { return }
+        webView.goForward()
     }
 
     @objc func refreshAction() {
-
+        webView.reload()
     }
 
+    //MARK: - Custom functions
 
+    func activityIndicatorStartLoading() {
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+        webView.isHidden = true
+
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalTo(view)
+        }
+    }
+
+    func activityIndicatorStopLoading() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        webView.isHidden = false
+    }
+
+    //MARK: WKNavigationDelegate
+
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        backButtonItem.isEnabled = webView.canGoBack
+        forwardButtonItem.isEnabled = webView.canGoForward
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        activityIndicatorStopLoading()
+    }
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        activityIndicatorStopLoading()
+    }
 }
-
 
