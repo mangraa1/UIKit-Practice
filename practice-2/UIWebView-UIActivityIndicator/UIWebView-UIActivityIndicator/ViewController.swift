@@ -29,13 +29,10 @@ final class ViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(activityIndicator)
-
         webView.navigationDelegate = self
 
         setupWebViewWithToolBar()
         loadRequest()
-
     }
 
     //MARK: - private
@@ -91,6 +88,10 @@ final class ViewController: UIViewController, WKNavigationDelegate {
     //MARK: - Custom functions
 
     func activityIndicatorStartLoading() {
+        view.addSubview(activityIndicator)
+
+        activityIndicator.color = .systemBlue
+
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
         webView.isHidden = true
@@ -111,6 +112,10 @@ final class ViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         backButtonItem.isEnabled = webView.canGoBack
         forwardButtonItem.isEnabled = webView.canGoForward
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        activityIndicatorStartLoading()
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
