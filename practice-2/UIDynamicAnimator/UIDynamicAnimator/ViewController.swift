@@ -7,34 +7,40 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     //MARK: - Variables
 
-    let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
-    let firstViewController = FirstViewController()
-    let secondViewController = SecondViewController()
+    private let firstViewController = FirstViewController()
+    private let secondViewController = SecondViewController()
+    private let thirdViewController = ThirdViewController()
 
-    let viewControllers = [UIViewController]()
+    private var viewControllers = [UIViewController]()
 
     //MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .gray
+
+        setupPageViewController()
+    }
+
+    private func setupPageViewController() {
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         pageViewController.didMove(toParent: self)
 
-        let viewControllers = [firstViewController, secondViewController]
+        viewControllers = [firstViewController, secondViewController, thirdViewController]
 
         pageViewController.setViewControllers([viewControllers[0]], direction: .forward, animated: true, completion: nil)
 
         pageViewController.dataSource = self
         pageViewController.delegate = self
     }
-
 }
 
 //MARK: - Extensions
@@ -50,6 +56,14 @@ extension ViewController: UIPageViewControllerDataSource, UIPageViewControllerDe
         guard let currentIndex = viewControllers.firstIndex(of: viewController), currentIndex < viewControllers.count - 1 else { return nil }
 
         return viewControllers[currentIndex + 1]
+    }
+
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        return viewControllers.count
+    }
+
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        return 0
     }
 }
 
