@@ -13,11 +13,15 @@ final class ViewController: UIViewController {
 
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
-    private let firstViewController = FirstViewController()
-    private let secondViewController = SecondViewController()
-    private let thirdViewController = ThirdViewController()
+    private let firstVC = FirstViewController()
+    private let secondVC = SecondViewController()
+    private let thirdVC = ThirdViewController()
+    private let fourthVC = FourthViewController()
 
-    private var viewControllers = [UIViewController]()
+    private var viewControllers: [UIViewController] {
+        let controllers = [firstVC, secondVC, thirdVC, fourthVC]
+        return controllers
+    }
 
     //MARK: - Life Cycle
 
@@ -33,8 +37,6 @@ final class ViewController: UIViewController {
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         pageViewController.didMove(toParent: self)
-
-        viewControllers = [firstViewController, secondViewController, thirdViewController]
 
         pageViewController.setViewControllers([viewControllers[0]], direction: .forward, animated: true, completion: nil)
 
