@@ -19,7 +19,7 @@ final class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 233/247, green: 233/247, blue: 233/247, alpha: 1)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -27,6 +27,7 @@ final class FirstViewController: UIViewController {
 
         createSquareView()
         createAnimatorAndGravity()
+        createCollision()
     }
 
     //MARK: - Setup DynamicAnimator
@@ -47,4 +48,9 @@ final class FirstViewController: UIViewController {
         animator.addBehavior(gravity)
     }
 
+    private func createCollision() {
+        let collision = UICollisionBehavior(items: [squareView])
+        collision.translatesReferenceBoundsIntoBoundary = true
+        animator.addBehavior(collision)
+    }
 }

@@ -19,7 +19,7 @@ final class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 211/247, green: 211/247, blue: 211/247, alpha: 1)
     }
 
     override func viewDidAppear(_ animated: Bool) {
