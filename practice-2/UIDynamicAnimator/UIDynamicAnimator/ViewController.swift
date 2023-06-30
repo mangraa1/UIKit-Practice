@@ -17,9 +17,10 @@ final class ViewController: UIViewController {
     private let secondVC = SecondViewController()
     private let thirdVC = ThirdViewController()
     private let fourthVC = FourthViewController()
+    private let fifthVC = FifthViewController()
 
     private var viewControllers: [UIViewController] {
-        let controllers = [firstVC, secondVC, thirdVC, fourthVC]
+        let controllers = [firstVC, secondVC, thirdVC, fourthVC, fifthVC]
         return controllers
     }
 

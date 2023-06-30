@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FourthViewController: UIViewController {
+final class FourthViewController: UIViewController {
 
     //MARK: - Variables
 
